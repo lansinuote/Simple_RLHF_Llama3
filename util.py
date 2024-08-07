@@ -3,10 +3,12 @@ import torch
 
 class TokenizerUtil:
 
-    def __init__(self):
+    def __init__(self, checkpoint='google/gemma-2-2b-it'):
         from transformers import AutoTokenizer
-        tokenizer = AutoTokenizer.from_pretrained('tokenizer/meta-llama/Meta-Llama-3-8B')
-        tokenizer.pad_token = '<|reserved_special_token_0|>'
+        tokenizer = AutoTokenizer.from_pretrained('tokenizer/' + checkpoint)
+        
+        if checkpoint == 'meta-llama/Meta-Llama-3-8B':
+            tokenizer.pad_token = '<|reserved_special_token_0|>'
 
         self.pad_token_id = tokenizer.pad_token_id
         self.bos_token_id = tokenizer.bos_token_id
